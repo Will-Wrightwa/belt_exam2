@@ -14,7 +14,11 @@ class friends(Controller):
         if not 'user' in session:
             return redirect('/')
         friends = self.models['user'].get_my_friends(session['user']['id'])
-        notfriends = self.models['user'].get_notmy_friends(session['user']['id'])
+        print friends
+        if len(friends) > 0:
+            notfriends = self.models['user'].get_notmy_friends(session['user']['id'])
+        else:
+            notfriends = self.models['user'].get_other_users(session['user']['id'])
         return self.load_view('friends.html',user=session['user'],friends=friends,not_friends=notfriends)
 
     def login(self):
