@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="/static/js/app.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div class="heading">
+                <h4>hello  {{user['name']}}</h4>
+                <a href="/logout">Logout</a>
+            </div>
+            <h5>here is a list of your friends: </h5>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Alias</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for friend in friends %}
+                <tr>
+                  <td>{{friend['alias']}}</td>
+                  <td>
+                        <a href="/user/{{friend['id']}}">View Profile</a>
+                        <a href="/unfriend/{{friend['id']}}">unfriend</a>
+                  </td>
+                </tr>
+                {% endfor %}
+
+
+              </tbody>
+            </table>
+            <h5>Other Users not on your friend list:</h5>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                    <th>Alias</th>
+                    <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for not_friend in not_friends %}
+                <tr>
+                    <td><a href="/user/{{not_friend['id']}}"></a>{{not_friend['alias']}}</td>
+                    <td>
+                        <a href="/addfriend/{{not_friend['id']}}">Add friend</a>
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </body>
+</html>

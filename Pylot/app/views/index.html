@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>home</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="/static/js/app.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h4>login</h4>
+            <form action="/login" method="post">
+                <input type="text" name="email" value="" placeholder="email">
+                <input type="text" name="password" value="" placeholder="password">
+                <input type="submit" name="submit" value="Login">
+                {% with errors = get_flashed_messages(category_filter=["login"]) %}
+                {% if errors %}
+                <div class="alert-message block-message error">
+                  <a class="close" href="#">×</a>
+                  <ul>
+                    {%- for msg in errors %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                  </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+            </form>
+            <h4>register</h4>
+            <form action="/register" method="post">
+                <input type="text" name="name" value="" placeholder="name">
+                <input type="text" name="alias" value="" placeholder="alias">
+                <input type="text" name="email" value="" placeholder="email">
+                <input type="text" name="password" value="" placeholder="password">
+                <input type="text" name="confirm_password" value="" placeholder="confirm password">
+                <input type="date" name="date_of_birth">
+                <input type="submit" name="submit" value="Register">
+                {% with errors = get_flashed_messages(category_filter=["register"]) %}
+                {% if errors %}
+                <div class="alert-message block-message error">
+                  <a class="close" href="#">×</a>
+                  <ul>
+                    {%- for msg in errors %}
+                    <li>{{ msg }}</li>
+                    {% endfor -%}
+                  </ul>
+                </div>
+                {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+    </body>
+</html>
