@@ -43,3 +43,15 @@ class friends(Controller):
     def profile(self,_id):
         friend = self.models['user'].get_user_by_id(_id)
         return self.load_view('profile.html',user=session['user'],friend=friend)
+    def add_friend(self):
+        if not "id" in request.form:
+            flash("dont mess with the page!")
+            return redirect('/friends')
+        self.models['user'].add_friend(session['user']['id'], request.form['id'])
+        return redirect('/friends')
+    def unfriend(self):
+        if not "id" in request.form:
+            flash("dont mess with the page!")
+            return redirect('/friends')
+        self.models['user'].unfriend(session['user']['id'], request.form['id'])
+        return redirect('/friends')

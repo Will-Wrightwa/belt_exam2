@@ -6,7 +6,8 @@ routes['POST']['/register'] = 'friends#register'
 routes['GET']['/logout'] = 'friends#logout'
 routes['GET']['/friends'] = 'friends#friends'
 routes['GET']['/user/<_id>'] = 'friends#profile'
-routes['GET']['/unfriend/<_id>'] = 'friends#unfriend'
+routes['POST']['/unfriend'] = 'friends#unfriend'
+routes['POST']['/addfriend'] = 'friends#add_friend'
 
 """
     routes['GET']['/users'] = 'users#index'

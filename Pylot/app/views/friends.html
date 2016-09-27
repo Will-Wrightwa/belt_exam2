@@ -28,7 +28,10 @@
                   <td>{{friend['alias']}}</td>
                   <td>
                         <a href="/user/{{friend['id']}}">View Profile</a>
-                        <a href="/unfriend/{{friend['id']}}">unfriend</a>
+                        <form action="/unfriend" method="post">
+                            <input type="hidden" name="id" value="{{friend['id']}}">
+                            <input type="submit" name="submit" value="unfriend">
+                        </form>
                   </td>
                 </tr>
                 {% endfor %}
@@ -49,12 +52,27 @@
                 <tr>
                     <td><a href="/user/{{not_friend['id']}}">{{not_friend['alias']}}</a></td>
                     <td>
-                        <a href="/addfriend/{{not_friend['id']}}">Add friend</a>
+                        <form action="/addfriend" method="POST">
+                            <input type="submit" name="submit" value="add friend">
+                            <input type="hidden" name="id" value="{{not_friend['id']}}">
+                        </form>
                     </td>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
+            {% with errors = get_flashed_messages() %}
+            {% if errors %}
+            <div class="alert-message block-message error">
+              <a class="close" href="#">×</a>
+              <ul>
+                {%- for msg in errors %}
+                <li>{{ msg }}</li>
+                {% endfor -%}
+              </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
         </div>
     </body>
 </html>

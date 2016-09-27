@@ -88,7 +88,16 @@ class user(Model):
         notmy_friends = self.db.query_db(query, data)
         print notmy_friends
         return notmy_friends
+    def add_friend(self,my_id,friend_id):
 
+        sql = "INSERT into friendships (friend1_user_id, friend2_user_id) values(:friend1_user_id,:friend2_user_id)"
+        data = {'friend1_user_id': my_id, 'friend2_user_id': friend_id}
+        self.db.query_db(sql, data)
+        return True
+    def unfriend(self,my_id,friend_id):
+        sql ="DELETE FROM belt_exam2.friendships WHERE (friend1_user_id= :my_id  AND friend2_user_id = :friend_id) OR (friend2_user_id = :my_id AND friend1_user_id = :friend_id) ;"
+        data = {'my_id': my_id, 'friend_id': friend_id}
+        return self.db.query_db(sql,data)
     """
     def get_users(self):
         query = "SELECT * from users"
