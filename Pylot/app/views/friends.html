@@ -47,7 +47,7 @@
               <tbody>
                 {% for not_friend in not_friends %}
                 <tr>
-                    <td><a href="/user/{{not_friend['id']}}"></a>{{not_friend['alias']}}</td>
+                    <td><a href="/user/{{not_friend['id']}}">{{not_friend['alias']}}</a></td>
                     <td>
                         <a href="/addfriend/{{not_friend['id']}}">Add friend</a>
                     </td>

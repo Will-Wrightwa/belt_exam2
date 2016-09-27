@@ -13,7 +13,9 @@ class friends(Controller):
     def friends(self):
         if not 'user' in session:
             return redirect('/')
-        return self.load_view('friends.html',user=session['user'])
+        friends = self.models['user'].get_my_friends(session['user']['id'])
+        notfriends = self.models['user'].get_notmy_friends(session['user']['id'])
+        return self.load_view('friends.html',user=session['user'],friends=friends,not_friends=notfriends)
 
     def login(self):
 
@@ -37,3 +39,7 @@ class friends(Controller):
     def logout(self):
         session.clear()
         return redirect("/")
+
+    def profile(self,_id):
+        friend = self.models['user'].get_user_by_id(_id)
+        return self.load_view('profile.html',user=session['user'],friend=friend)

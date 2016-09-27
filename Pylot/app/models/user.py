@@ -63,6 +63,31 @@ class user(Model):
         user = self.db.query_db(query, data)[0]
         return user
 
+    def get_my_friends_left(self,_id):
+        query = "SELECT friend1.alias as alias, friend1.id as id from friendships  LEFT JOIN user AS friend1 ON friendships.friend1_user_id = friend1.id where friendships.friend2_user_id = :id"
+        data = {'id': _id}
+        return self.db.query_db(query, data)
+
+    def get_my_friends_right(self,_id):
+        query = "SELECT friend2.alias as alias, friend2.id as id from friendships  LEFT JOIN user AS friend2 ON friendships.friend2_user_id = friend2.id where friendships.friend1_user_id = :id"
+        data = {'id': _id}
+        return self.db.query_db(query, data)
+    def get_my_friends(self,_id):
+        my_friendsa = self.get_my_friends_right(_id)
+        my_friendsb = self.get_my_friends_left(_id)
+        my_friends = my_friendsa + my_friendsb
+        return my_friends
+
+
+
+    def get_notmy_friends(self,_id):
+        friends = self.get_my_friends(_id)
+        friends_ids = [row['id'] for row in friends]
+        query = "SELECT alias, id from user where user.id not in :friends_ids and  user.id <> :id"
+        data = {'id': _id, 'friends_ids':friends_ids}
+        notmy_friends = self.db.query_db(query, data)
+        print notmy_friends
+        return notmy_friends
 
     """
     def get_users(self):
